@@ -1,10 +1,14 @@
 package com.example.mobileproject.repository
 
 import android.util.Log
+import com.example.mobileproject.models.Order
+import com.example.mobileproject.models.api_request.ErrorResponse
+import com.example.mobileproject.models.api_request.OrderRequest
 import com.example.mobileproject.models.api_responses.MenuItemResponse
 import com.example.mobileproject.models.api_responses.OrderItemResponse
 import com.example.mobileproject.models.api_responses.RestaurantListResponse
 import com.example.mobileproject.network.RestaurantAPI
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,6 +95,56 @@ object Repository {
             }
 
             override fun onFailure(call: Call<List<OrderItemResponse>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun postOrderByUser(email: String, order: Order){
+        val call = api.postCreateOder(email, OrderRequest(order))
+        call.enqueue(object: Callback<OrderItemResponse>{
+            override fun onResponse(
+                call: Call<OrderItemResponse>,
+                response: Response<OrderItemResponse>
+            ) {
+                val datos: OrderItemResponse? = response.body()
+                if (datos != null){
+                    //Pasamos los datos de OrderItemResponse a un Order o hacemos
+                    //lo que queramos, porque ha salido bien la inserción
+                }
+                else{
+                    val error: ResponseBody? = response.errorBody()
+                    Log.e("API Call CreateOrder", error.toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<OrderItemResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun putModifyOrder(email: String, orderId: Int, order: Order){
+        val call = api.putModifyOrder(email, orderId, OrderRequest(order))
+        call.enqueue(object: Callback<OrderItemResponse>{
+            override fun onResponse(
+                call: Call<OrderItemResponse>,
+                response: Response<OrderItemResponse>
+            ) {
+                val datos: OrderItemResponse? = response.body()
+                if (datos != null){
+                    //Pasamos los datos de OrderItemResponse a un Order o hacemos
+                    //lo que queramos, porque ha salido bien la inserción
+                }
+                else{
+                    val error: ResponseBody? = response.errorBody()
+                    Log.e("API Call CreateOrder", error.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<OrderItemResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 

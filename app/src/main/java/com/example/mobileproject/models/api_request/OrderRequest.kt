@@ -1,6 +1,6 @@
-package com.example.mobileproject.models
+package com.example.mobileproject.models.api_request
 
-import com.example.semana1.enums.OrderStatus
+import com.example.mobileproject.models.Order
 
 class OrderRequest (private val order: Order){
     private var status: String = ""
@@ -22,7 +22,7 @@ class OrderRequest (private val order: Order){
     fun toJson(): String {
         return "{" +
                 "\"status\": \"${this.status}\"," +
-                "\"restaurant\": ${this.restaurantId}," +
+                "\"restaurantId\": ${this.restaurantId}," +
                 "\"totalCost\": ${this.totalCost}," +
                 "\"paidDate\": \"${this.paidDate}\"," +
                 "\"deliveredDate\": \"${this.deliveredDate}\"," +
