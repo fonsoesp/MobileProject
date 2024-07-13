@@ -126,7 +126,6 @@ object RepositoryAsync {
         }
     }
 
-
     fun getOrdersByUser(email: String){
         val call = api.getOrdersByUserEmail(email)
         call.enqueue(object: Callback<List<OrderItemResponse>>{

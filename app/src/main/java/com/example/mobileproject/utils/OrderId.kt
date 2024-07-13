@@ -7,7 +7,7 @@ package com.example.mobileproject.utils
 object OrderId {
     private var numOrder = 0
 
-    fun getNumOrder(): String{
-        return (++this.numOrder).toString()
+    fun getNumOrder(): Int{
+        return ++this.numOrder
     }
 }

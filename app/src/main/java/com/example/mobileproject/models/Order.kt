@@ -17,24 +17,24 @@ import java.time.LocalDateTime
  * su pedido en el domicilio (IN_PROGRESS, PAYED, DELIVERED)
  */
 class Order (
-    val user: User,
+    var id: Int = OrderId.getNumOrder(),
+    var user: User,
     var status: OrderStatus,
-    val restaurant: Restaurant
-){
-    var id: String = OrderId.getNumOrder() //Atributo privado de la Order
-        get() = field
+    var restaurant: Restaurant
+    ){
+
     var price: Float = 0.0f
         get() = DecimalFormat("#,##").format(field).toFloat() //CUIDADO CON LA COMA
     var items: MutableList<MenuItem> = mutableListOf()
-    var paidDate: String = "" //"yyyy-MM-ddTHH:mm:ss"
-    var deliveredDate: String = "" //"yyyy-MM-ddTHH:mm:ss"
+    var paidDate: LocalDateTime? = null //"yyyy-MM-ddTHH:mm:ss"
+    var deliveredDate: LocalDateTime? = null //"yyyy-MM-ddTHH:mm:ss"
 
     constructor(
         user: User,
         restaurant: Restaurant,
         command: MutableList<MenuItem>,
         status: OrderStatus = OrderStatus.IN_PROGRESS
-    ) : this(user, status, restaurant){ //Si inicializa la comanda por aquí, calcula precio. Si no, la comanda está vacía
+    ) : this(user = user, status = status, restaurant = restaurant){ //Si inicializa la comanda por aquí, calcula precio. Si no, la comanda está vacía
         //Calculamos el precio de la comanda
         this.items = command
         for (item in this.items)

@@ -36,8 +36,18 @@ object Utils {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun parseLocalDateTimeToString (date: LocalDateTime): String{
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+    fun parseLocalDateTimeToString (date: LocalDateTime, format: String = "yyyy-MM-dd'T'HH:mm:ss"): String{
+        val formatter = DateTimeFormatter.ofPattern(format)
         return date.format(formatter)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun parseToLocalDateTime(date: String, format:String = "yyyy-MM-dd'T'HH:mm:ss"): LocalDateTime{
+        try {
+            val formatter = DateTimeFormatter.ofPattern(format)
+            return LocalDateTime.parse(date, formatter)
+        } catch (e: DateTimeParseException) {
+            throw Exception ("Error al parsear la cadena: ${e.message}")
+        }
     }
 }
