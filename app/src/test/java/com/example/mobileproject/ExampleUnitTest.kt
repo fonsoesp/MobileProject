@@ -1,5 +1,8 @@
 package com.example.mobileproject
 
+import android.util.Log
+import com.example.mobileproject.repository.RepositoryAsync
+import com.example.mobileproject.repository.RepositorySync
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +16,11 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun APITestRestaurants(){
+        val restaurantes = RepositorySync.getRestaurants()
+        Log.i("Test", restaurantes.toString())
     }
 }

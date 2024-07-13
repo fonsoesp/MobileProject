@@ -40,8 +40,14 @@ android {
  * RETROFIT
  * implementation ("com.squareup.retrofit2:retrofit:2.9.0")
  * implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+ *
+ * LLAMADAS ASÍNCRONAS CON SCOPE LIMITADO A LA ACTIVITY
+ * implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
+ * implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
  */
 dependencies {
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation(libs.androidx.core.ktx)

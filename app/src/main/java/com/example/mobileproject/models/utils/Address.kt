@@ -6,5 +6,7 @@ class Address (
     private val location: String,
     private val description: String
 ) {
-
+    override fun toString(): String {
+        return "Address(address='$address', number='$number', location='$location', description='$description')"
+    }
 }

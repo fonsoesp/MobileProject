@@ -26,6 +26,10 @@ class MenuItem (
         return this.price
     }
 
+    override fun toString(): String {
+        return "MenuItem(id=$id, name='$name', description='$description', url='$url', stock=$stock, allergens=$allergens, price=$price)"
+    }
+
     constructor(
         id: Int,
         name: String,
@@ -37,4 +41,6 @@ class MenuItem (
     ) : this(id, name, description, url, stock, allergens){
         this.price = price
     }
+
+
 }

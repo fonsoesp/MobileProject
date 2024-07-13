@@ -16,9 +16,9 @@ class Agenda (
     private var openingTime: LocalTime,
     private var closingTime: LocalTime
 ){
-    private lateinit var daysOff: MutableList<DayOfWeek> //días de descanso
-    private lateinit var specialDaysClosed: MutableList<String> //En formato dd/MM
-    private lateinit var specialDaysOpened: MutableList<String> //En formato dd/MM
+    private var daysOff: MutableList<DayOfWeek> = mutableListOf() //días de descanso
+    private var specialDaysClosed: MutableList<String> = mutableListOf() //En formato dd/MM
+    private var specialDaysOpened: MutableList<String> = mutableListOf() //En formato dd/MM
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun isOpen (date: LocalDateTime): Boolean{
@@ -35,4 +35,10 @@ class Agenda (
 
         return true
     }
+
+    override fun toString(): String {
+        return "Agenda(openingTime=$openingTime, closingTime=$closingTime, daysOff=$daysOff, specialDaysClosed=$specialDaysClosed, specialDaysOpened=$specialDaysOpened)"
+    }
+
+
 }

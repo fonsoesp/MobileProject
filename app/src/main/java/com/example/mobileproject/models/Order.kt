@@ -2,7 +2,6 @@ package com.example.mobileproject.models
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.mobileproject.models.api_responses.Restaurant
 import com.example.mobileproject.utils.OrderId
 import com.example.mobileproject.utils.Utils
 import com.example.semana1.enums.OrderStatus

@@ -14,7 +14,13 @@ class Menu (
         this.items.add(item)
     }
 
-    fun getItem(id: String): MenuItem? {
+    fun getItem(id: Int): MenuItem? {
         return items.find { it.id == id }
     }
+
+    override fun toString(): String {
+        return "Menu(items=$items, allergenInfo='$allergenInfo')"
+    }
+
+
 }

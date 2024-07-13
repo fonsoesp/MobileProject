@@ -16,7 +16,7 @@ interface RestaurantAPI {
     fun getRestaurants(): Call<RestaurantListResponse>
 
     @GET("restaurants/{id}/menu")
-    fun getMenuByRestaurantId(@Path("id") idRestaurant: Int): Call<List<MenuItemResponse>>
+    fun getMenuItemsByRestaurantId(@Path("id") idRestaurant: Int): Call<List<MenuItemResponse>>
 
     @GET("user/{email}/orders")
     fun getOrdersByUserEmail(@Path("email") email: String): Call <List<OrderItemResponse>>

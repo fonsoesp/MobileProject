@@ -1,4 +1,4 @@
-package com.example.mobileproject.models.api_responses
+package com.example.mobileproject.models
 
 import com.example.mobileproject.models.api_responses.utils.Address
 import com.example.mobileproject.models.api_responses.utils.Agenda
@@ -13,7 +13,12 @@ import com.example.mobileproject.models.Menu
 class Restaurant(
     val id: Int,
     val name: String,
+    val image: String,
     val address: Address,
     val agenda: Agenda,
     val menu: Menu
-) {}
+) {
+    override fun toString(): String {
+        return "Restaurant(id=$id, name='$name', image='$image', address=$address, agenda=$agenda, menu=$menu)"
+    }
+}
