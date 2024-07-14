@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         /*PROBAMOS EL ENDPOINT DE TRAER LAS ORDERS DE UN USUARIO*/
         lifecycleScope.launch{
             try{
-                val emailUser = "fonsoesp@gmail.coma"
+                val emailUser = "fonsoesp@gmail.com"
                 Log.i("ORDERS DE USUARIO", "Antes de la llamada")
                 //Sería bueno tener un endpoint para no pasarle el email del usuario, sino el Objeto usuario
                 val orders: List<Order> = RepositoryAsync.getOrdersByUser(emailUser)
@@ -62,7 +62,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*PROBAMOS EL ENDPOINT DE */
+        /*PROBAMOS EL ENDPOINT DE TRAER LAS ORDERS DE UN USUARIO ERRÓNEO*/
+        lifecycleScope.launch{
+            try{
+                val emailUser = "XXXXXXXXXX@gmail.com"
+                Log.i("ORDERS DE USUARIO", "Antes de la llamada")
+                //Sería bueno tener un endpoint para no pasarle el email del usuario, sino el Objeto usuario
+                val orders: List<Order> = RepositoryAsync.getOrdersByUser(emailUser)
+                Log.i("ORDERS DE $emailUser", orders.toString())
+                println(orders)
+            } catch (e: Exception){
+                Log.e ("MainActivity", "Error: ${e.message}")
+            }
+        }
 
         /*PRUEBAS BORRAR*/
 //        lifecycleScope.launch{
