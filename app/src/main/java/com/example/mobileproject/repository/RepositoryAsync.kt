@@ -7,6 +7,8 @@ import com.example.mobileproject.models.Menu
 import com.example.mobileproject.models.MenuItem
 import com.example.mobileproject.models.Order
 import com.example.mobileproject.models.Restaurant
+import com.example.mobileproject.models.User
+import com.example.mobileproject.models.api_request.ErrorResponse
 import com.example.mobileproject.models.api_request.OrderRequest
 import com.example.mobileproject.models.api_responses.MenuItemResponse
 import com.example.mobileproject.models.api_responses.OrderItemResponse
@@ -69,7 +71,7 @@ object RepositoryAsync {
                     val datos: RestaurantListResponse? = response.body()
                     datos?.convertToPOJO() ?: emptyList() //Devuelve una List<Restaurant> o lista vacía
                 } else {
-                    Log.e("Repository", "Llamada incorrecta: ${response.code()}")
+                    Log.e("Repository", "Llamada incorrecta ${response.code()}: ${response.errorBody()?.string()}")
                     throw RuntimeException("Llamada incorrecta: ${response.code()}")
                 }
             } catch (e: Exception) {
@@ -116,7 +118,7 @@ object RepositoryAsync {
                         for (item in datos) items.add(item.convertToPOJO())
                     items.toList()
                 } else {
-                    Log.e("Repository", "Llamada incorrecta: ${response.code()}")
+                    Log.e("Repository", "Llamada incorrecta ${response.code()}: ${response.errorBody()?.string()}")
                     throw RuntimeException("Llamada incorrecta: ${response.code()}")
                 }
             } catch (e: Exception) {
@@ -126,28 +128,32 @@ object RepositoryAsync {
         }
     }
 
-    fun getOrdersByUser(email: String){
-        val call = api.getOrdersByUserEmail(email)
-        call.enqueue(object: Callback<List<OrderItemResponse>>{
-            override fun onResponse(
-                call: Call<List<OrderItemResponse>>,
-                response: Response<List<OrderItemResponse>>
-            ) {
-                val datos: List<OrderItemResponse>? = response.body()
-                if (datos != null){
-                    for (orders in datos){
-                        //Pasamos los datos de OrderItemResponse a un List<Order>
-                    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getOrdersByUser(email: String): List<Order>{
+        return withContext(Dispatchers.IO) {
+            try{
+                val response = api.getOrdersByUserEmail(email).execute()
+                if (response.isSuccessful){
+                    val datos: List<OrderItemResponse>? = response.body()
+                    val retorno: MutableList<Order> = mutableListOf()
+                    val userTemp: User = User(email) //No tenemos endpoint que recupere el usuario
+                    if (datos != null)
+                        for (orderResponse in datos)
+                            //Pasamos los datos de OrderItemResponse a un List<Order>
+                            retorno.add(orderResponse.convertToPOJO(userTemp))
+                    retorno.toList()
+                } else {
+                    Log.e("Repository", "Llamada incorrecta ${response.code()}: ${response.errorBody()?.string()}")
+                    throw RuntimeException("Llamada incorrecta: ${response.code()}")
                 }
+            } catch (e: Exception) {
+                Log.e("Repository", "Error en la llamada: ${e.message}")
+                throw e
             }
-
-            override fun onFailure(call: Call<List<OrderItemResponse>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun postOrderByUser(email: String, order: Order){
         val call = api.postCreateOder(email, OrderRequest(order))
         call.enqueue(object: Callback<OrderItemResponse>{
@@ -161,8 +167,7 @@ object RepositoryAsync {
                     //lo que queramos, porque ha salido bien la inserción
                 }
                 else{
-                    val error: ResponseBody? = response.errorBody()
-                    Log.e("API Call CreateOrder", error.toString())
+                    Log.e("Repository", "Llamada incorrecta ${response.code()}: ${response.errorBody()?.string()}")
                 }
 
             }
@@ -173,6 +178,7 @@ object RepositoryAsync {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun putModifyOrder(email: String, orderId: Int, order: Order){
         val call = api.putModifyOrder(email, orderId, OrderRequest(order))
         call.enqueue(object: Callback<OrderItemResponse>{
@@ -183,11 +189,10 @@ object RepositoryAsync {
                 val datos: OrderItemResponse? = response.body()
                 if (datos != null){
                     //Pasamos los datos de OrderItemResponse a un Order o hacemos
-                    //lo que queramos, porque ha salido bien la inserción
+                    //lo que queramos, porque ha salido bien la modificación
                 }
                 else{
-                    val error: ResponseBody? = response.errorBody()
-                    Log.e("API Call CreateOrder", error.toString())
+                    Log.e("Repository", "Llamada incorrecta ${response.code()}: ${response.errorBody().toString()}")
                 }
             }
 

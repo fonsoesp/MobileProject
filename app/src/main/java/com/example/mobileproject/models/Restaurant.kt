@@ -16,7 +16,7 @@ class Restaurant(
     val image: String,
     val address: Address,
     val agenda: Agenda,
-    val menu: Menu
+    var menu: Menu
 ) {
     override fun toString(): String {
         return "Restaurant(id=$id, name='$name', image='$image', address=$address, agenda=$agenda, menu=$menu)"

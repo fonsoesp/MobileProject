@@ -1,7 +1,11 @@
 package com.example.mobileproject.models.api_request
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.mobileproject.models.Order
+import com.example.mobileproject.utils.Utils
 
+@RequiresApi(Build.VERSION_CODES.O)
 class OrderRequest (private val order: Order){
     private var status: String = ""
     private var restaurantId: Int = 0
@@ -15,8 +19,8 @@ class OrderRequest (private val order: Order){
         this.restaurantId = order.restaurant.id
         for (item in order.items) this.items.add(item.id)
         this.totalCost = this.order.price
-        this.paidDate = order.paidDate //"" Si no está pagado o la fecha en formato correcto en caso de que lo esté
-        this.deliveredDate = order.deliveredDate //"" Si no está enviado o la fecha en formato correcto en caso de que lo esté
+        this.paidDate = Utils.parseLocalDateTimeToString(order.paidDate) //"" Si no está pagado o la fecha en formato correcto en caso de que lo esté
+        this.deliveredDate = Utils.parseLocalDateTimeToString(order.deliveredDate) //"" Si no está enviado o la fecha en formato correcto en caso de que lo esté
     }
 
     fun toJson(): String {

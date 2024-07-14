@@ -36,9 +36,12 @@ object Utils {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun parseLocalDateTimeToString (date: LocalDateTime, format: String = "yyyy-MM-dd'T'HH:mm:ss"): String{
-        val formatter = DateTimeFormatter.ofPattern(format)
-        return date.format(formatter)
+    fun parseLocalDateTimeToString (date: LocalDateTime?, format: String = "yyyy-MM-dd'T'HH:mm:ss"): String{
+        if (date != null) {
+            val formatter = DateTimeFormatter.ofPattern(format)
+            return date.format(formatter)
+        }
+        return ""
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

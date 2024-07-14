@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mobileproject.models.Menu
 import com.example.mobileproject.models.MenuItem
+import com.example.mobileproject.models.Order
 import com.example.mobileproject.models.Restaurant
 import com.example.mobileproject.models.api_responses.OrderItemResponse
 import com.example.mobileproject.repository.RepositoryAsync
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.i ("MainActivity", "Empezamos")
 
+        /*PROBAMOS EL ENDPOINT DE RESTAURANTES*/
         lifecycleScope.launch{
             try{
                 val restaurantes: List<Restaurant> = RepositoryAsync.getRestaurants()
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /*PROBAMOS EL ENDPOINT DE TRAER EL MENÚ DEL RESTAURANTE #1*/
         lifecycleScope.launch{
             try{
                 val restaurantId = 1
@@ -45,32 +48,35 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        //OJO CUIDADO
-        //Antes de llamar convertToPOJO del Orders tienes que haber obetnido los restaurantes
+        /*PROBAMOS EL ENDPOINT DE TRAER LAS ORDERS DE UN USUARIO*/
         lifecycleScope.launch{
             try{
-                val restaurantId = 1
-                Log.i("MENU", "Antes de la llamada")
-                val menu: List<MenuItem> = RepositoryAsync.getMenuItemsByRestaurant(restaurantId)
-                Log.i("MENU", menu.toString())
-                println(menu)
+                val emailUser = "fonsoesp@gmail.coma"
+                Log.i("ORDERS DE USUARIO", "Antes de la llamada")
+                //Sería bueno tener un endpoint para no pasarle el email del usuario, sino el Objeto usuario
+                val orders: List<Order> = RepositoryAsync.getOrdersByUser(emailUser)
+                Log.i("ORDERS DE $emailUser", orders.toString())
+                println(orders)
             } catch (e: Exception){
                 Log.e ("MainActivity", "Error: ${e.message}")
             }
         }
 
-        lifecycleScope.launch{
-            val variable: OrderItemResponse = OrderItemResponse(
-                id = 1,
-                items = mutableListOf(),
-                status =  "",
-                paidDate = "",
-                totalCost = 0.0f,
-                restaurantId = 3
-            )
-            val restaurantes: List<Restaurant> = variable.getRestaurants()
-            Log.i("MainACTIVITY", restaurantes.get(0).toString())
-        }
+        /*PROBAMOS EL ENDPOINT DE */
+
+        /*PRUEBAS BORRAR*/
+//        lifecycleScope.launch{
+//            val variable: OrderItemResponse = OrderItemResponse(
+//                id = 1,
+//                items = mutableListOf(),
+//                status =  "",
+//                paidDate = "",
+//                totalCost = 0.0f,
+//                restaurantId = 3
+//            )
+//            val restaurantes: List<Restaurant> = variable.getRestaurants()
+//            Log.i("MainACTIVITY", restaurantes.get(0).toString())
+//        }
     //        val restaurantes = RepositorySync.getRestaurants()
 //        Log.i("MainActivity", restaurantes.toString())
 //        println(restaurantes)

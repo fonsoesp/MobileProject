@@ -17,9 +17,9 @@ import java.time.LocalDate
 class User(
     val firstName: String,
     val lastName: String,
-    val birthday: LocalDate,
-    var address: Address,
-    val orders: MutableList<Order> = mutableListOf()
+    val birthday: LocalDate?,
+    var address: Address?,
+    val orders: MutableList<Order>? = mutableListOf()
 ){
     var phone: String = "" //Formato Andorrano (+37 000 00 00 00)
         /*Si llamas a Andorra desde España (o cualquier otro país), debes marcar el 00 376 (o +376),
@@ -56,11 +56,17 @@ class User(
         this.email = email
     }
 
-    fun getOrdersByStatus(status: OrderStatus):List<Order>{
-        return orders.filter{ it.status == status }
+    constructor(
+        email: String
+    ) : this("", "", null, null, null){
+        this.email = email
+    }
+
+    fun getOrdersByStatus(status: OrderStatus): List<Order>? {
+        return orders?.filter{ it.status == status }
     }
 
     fun addOrder(order: Order){
-        orders.add(order)
+        orders?.add(order)
     }
 }
