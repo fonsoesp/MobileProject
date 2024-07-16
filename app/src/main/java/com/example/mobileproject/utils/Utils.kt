@@ -53,4 +53,9 @@ object Utils {
             throw Exception ("Error al parsear la cadena: ${e.message}")
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun parseLocalTimeToString(time: LocalTime, format: String = "HH:mm"): String {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        return time.format(formatter)
+    }
 }

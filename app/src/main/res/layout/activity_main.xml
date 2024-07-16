@@ -17,8 +17,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -26,44 +24,9 @@
                 android:layout_centerInParent="true"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="end|center_vertical"
-                android:layout_alignParentEnd="true">
-
-                <ImageView
-                    android:id="@+id/cart_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_cart"
-                    android:padding="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <ImageView
-                    android:id="@+id/user_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_user"
-                    android:padding="8dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-            </LinearLayout>
+                android:textStyle="bold"
+                android:text="toolbar_title"/>
         </RelativeLayout>
-
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.card.MaterialCardView

@@ -2,6 +2,7 @@ package com.example.mobileproject.models.api_responses.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.mobileproject.utils.Utils
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -34,6 +35,16 @@ class Agenda (
         if (time < this.openingTime || time > this.closingTime) return false
 
         return true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getOpeningTime(): String{
+        return Utils.parseLocalTimeToString(this.openingTime, format = "HH:mm")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getClosingTime(): String{
+        return Utils.parseLocalTimeToString(this.closingTime, format = "HH:mm")
     }
 
     override fun toString(): String {

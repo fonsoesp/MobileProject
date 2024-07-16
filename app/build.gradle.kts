@@ -37,6 +37,8 @@ android {
 
 
 /**
+ * RECYCLERVIEW
+ * implementation ("androidx.recyclerview:recyclerview:1.3.2")
  * RETROFIT
  * implementation ("com.squareup.retrofit2:retrofit:2.9.0")
  * implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -44,8 +46,13 @@ android {
  * LLAMADAS ASÍNCRONAS CON SCOPE LIMITADO A LA ACTIVITY
  * implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
  * implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
+ *
+ * GLIDE
+ * implementation ("com.github.bumptech.glide:glide:4.12.0")
  */
 dependencies {
+    implementation (libs.glide)
+    implementation (libs.androidx.recyclerview)
     implementation (libs.androidx.lifecycle.runtime.ktx)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.retrofit)

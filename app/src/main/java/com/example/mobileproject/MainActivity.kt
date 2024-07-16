@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileproject.adapter.RestaurantAdapter
 import com.example.mobileproject.models.Menu
 import com.example.mobileproject.models.MenuItem
 import com.example.mobileproject.models.Order
@@ -25,9 +26,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: RestaurantViewModel by viewModels()
 
-    @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
             address = Address("Calle", "", "", ""),
             email = email
         )
-        //val user = User("Carles", "Gallel", LocalDate.of(2000, 1, 1), "Calle", "+376 878 300", email, "https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.png")
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -52,21 +50,14 @@ class MainActivity : AppCompatActivity() {
         val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
         toolbarTitle.text = "RESTAURANTES"
 
-        val userIcon: ImageView = findViewById(R.id.user_icon)
-        userIcon.setOnClickListener {
-            val intent = Intent(this, UserActivity::class.java)
-            intent.putExtra("user", user)
-
-            startActivity(intent)
+        lifecycleScope.launch{
+            try{
+                val restaurants: List<Restaurant> = RepositoryAsync.getRestaurants()
+                recyclerView.adapter = RestaurantAdapter(restaurants, user)
+            } catch (e: Exception){
+                Log.e ("MainActivity", "Error: ${e.message}")
+            }
         }
-
-        val cartIcon: ImageView = findViewById(R.id.cart_icon)
-        cartIcon.setOnClickListener {
-            val intent = Intent(this, OrderSummaryActivity::class.java)
-            intent.putExtra("user", user)
-            startActivity(intent)
-        }
-
 
 //        /*PROBAMOS EL ENDPOINT DE RESTAURANTES*/
 //        lifecycleScope.launch{
