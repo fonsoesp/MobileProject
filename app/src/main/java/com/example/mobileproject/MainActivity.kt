@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             firstName = "Carles",
             lastName = "Gallel",
             birthday = LocalDate.of(2000, 1, 1),
-            phone = "+376 878 300",
+            phone = "00 376 87830",
             address = Address("Calle", "", "", ""),
             email = email
         )

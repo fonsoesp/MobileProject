@@ -26,13 +26,13 @@ class User(
          que es el prefijo del país. Seguidamente, podrás marcar el número al que quieras llamar,
          éste tendrá 6 dígitos y empezará por “8” si es fijo, por “3” si es móvil de contrato, o “6”
          si es móvil de tarjeta.*/
-        set(value) {
-            val pattern = "^00 376 [8]\\d{5}|\\+376 [8]\\d{5}|00 376 [36]\\d{5}|\\+376 [36]\\d{5}\$"
-            require(Regex(pattern).matches(value)) {
-                "El número de teléfono ${value} no corresponde con un número de teléfono Andorrano"
-            }
-            field = value
-        }
+//        set(value) {
+//            val pattern = "^00 376 [8]\\d{5}|\\+376 [8]\\d{5}|00 376 [36]\\d{5}|\\+376 [36]\\d{5}\$"
+//            require(Regex(pattern).matches(value)) {
+//                "El número de teléfono ${value} no corresponde con un número de teléfono Andorrano"
+//            }
+//            field = value
+//        }
 
     var email: String = "" //Formato EMAIL
         set(value){
