@@ -52,6 +52,13 @@ class RickAndMortyCharacterAdapter(
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         repository.insert(character) // Intentar insertar el personaje
+                        withContext(Dispatchers.Main) { //Notificamos al usuario la correcta inserción
+                            Toast.makeText(
+                                itemView.context,
+                                "Personaje insertado correctamente",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     } catch (e: SQLiteConstraintException) {
                         // Manejar la excepción aquí
                         Log.e("CharacterAdapter", "Error en la inserción del personaje: ", e)
@@ -63,13 +70,6 @@ class RickAndMortyCharacterAdapter(
                                 Toast.LENGTH_LONG
                             ).show()
                         }
-                    }
-                    withContext(Dispatchers.Main) { //Notificamos al usuario la correcta inserción
-                        Toast.makeText(
-                            itemView.context,
-                            "Personaje insertado correctamente",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
             }
