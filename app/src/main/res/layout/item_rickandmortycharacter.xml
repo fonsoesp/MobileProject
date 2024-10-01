@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Imagen del personaje -->
+    <ImageView
+        android:id="@+id/characterImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Contenedor para el nombre y subtítulo del personaje -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Nombre del personaje -->
+        <TextView
+            android:id="@+id/characterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:paddingBottom="4dp" />
+
+        <!-- Subtítulo del personaje -->
+        <TextView
+            android:id="@+id/characterSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <!-- Botón de acción -->
+    <Button
+        android:id="@+id/action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acción" />
+</LinearLayout>
